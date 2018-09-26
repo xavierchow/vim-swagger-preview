@@ -10,11 +10,10 @@ endif
 let g:swagger_preview=1 
 
 let swagger_preview_plugin_path = resolve(expand('<sfile>:p:h'))
-"default nmap is <leader>z, 'n' means normal mode
+"default nmap is <leader>e, 'n' means normal mode
 if ( !hasmapto( '<Plug>PreviewSwagger', 'n' ) ) 
-  nmap <unique> <leader>z <Plug>PreviewSwagger
-endif 
-autocmd FileType yaml nmap <silent> <buffer> <Plug>PreviewSwagger
+  autocmd FileType yaml nmap <unique> <leader>e <Plug>PreviewSwagger
+  autocmd FileType yaml nmap <silent> <buffer> <Plug>PreviewSwagger
       \ :call swagger_previewer#Generate(swagger_preview_plugin_path)<CR>
-
+endif
 
