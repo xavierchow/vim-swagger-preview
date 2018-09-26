@@ -10,10 +10,11 @@ endif
 let g:swagger_preview=1 
 
 let swagger_preview_plugin_path = resolve(expand('<sfile>:p:h'))
-"default nmap is <leader>e, 'n' means normal mode
-if ( !hasmapto( '<Plug>PreviewSwagger', 'n' ) ) 
-  autocmd FileType yaml nmap <unique> <leader>e <Plug>PreviewSwagger
-  autocmd FileType yaml nmap <silent> <buffer> <Plug>PreviewSwagger
-      \ :call swagger_previewer#Generate(swagger_preview_plugin_path)<CR>
+"default nmap is <leader>e, 'n' means normal mode,
+"reusing the same plug name as https://github.com/xavierchow/vim-sequence-diagram
+if ( !hasmapto( '<Plug>GenerateDiagram', 'n' ) ) 
+  nmap <unique> <leader>e <Plug>GenerateDiagram
 endif
+autocmd FileType yaml nmap <silent> <buffer> <Plug>GenerateDiagram
+      \ :call swagger_previewer#Generate(swagger_preview_plugin_path)<CR>
 
