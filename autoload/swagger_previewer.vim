@@ -1,5 +1,7 @@
 
 function! swagger_previewer#Generate(pluginPath)
+  let tmpDir = "/tmp/vim-swagger-preview/"
+  call system("mkdir " . tmpDir)
   if exists( "g:swagger_preview_verbose_log" ) 
     execute "!" . "swagger_preview " . bufname("%")
   else
