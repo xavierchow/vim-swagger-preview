@@ -5,7 +5,11 @@ function! swagger_previewer#Generate(pluginPath)
   if exists( "g:swagger_preview_verbose_log" ) 
     execute "!" . "swagger_preview " . bufname("%")
   else
-    silent execute "!" . "swagger_preview " . bufname("%") . "> /dev/null 2>&1"
+    if has('nvim')
+      silent execute "!" . "swagger_preview " . bufname("%") . "> /dev/null 2>&1"
+    else
+      execute "!" . "swagger_preview " . bufname("%") . "> /dev/null 2>&1"
+    endif
   endif
 
   if has('mac')
