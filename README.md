@@ -35,6 +35,9 @@ Installation
 
 Usage
 -----
+
+<img src="https://raw.githubusercontent.com/xavierchow/asset/master/vim-swagger-preview/screenshot.gif" height="450">
+
 ### File extension
 This plugin only applies to yaml file with the OpenAPI spec.
 
