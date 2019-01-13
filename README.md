@@ -17,7 +17,7 @@ Installation
 ### Prerequisite
 * Chrome
 * docker
-* `cat .zshenv >> ~/.zshenv`
+* find the zsh script [here](https://github.com/xavierchow/vim-swagger-preview/blob/master/.zshenv), and `cat .zshenv >> ~/.zshenv`
   * Notes:
     * `.zshrc` doesn't work because shell script from vim is not interactive shell.
     * you can put the script above to other shell if you don't use zsh.

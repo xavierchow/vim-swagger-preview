@@ -12,9 +12,17 @@ function! swagger_previewer#Generate(pluginPath)
     endif
   endif
 
-  if has('mac')
-    call system("osascript " . a:pluginPath . '/applescript/active.scpt')
+  let log = tmpDir . "validate.log"
+  if getfsize(log) > 0
+    let l:lines = readfile(log)
+    for l:line in l:lines
+        echo l:line
+    endfor
   else
-    call system("xdg-open " . "http://localhost:8017")
+    if has('mac')
+      call system("osascript " . a:pluginPath . '/applescript/active.scpt')
+    else
+      call system("xdg-open " . "http://localhost:8017")
+    endif
   endif
 endfunctio
