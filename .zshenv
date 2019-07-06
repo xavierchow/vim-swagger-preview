@@ -2,12 +2,17 @@
 function swagger_yaml2json() {
   TMP_DIR="/tmp/vim-swagger-preview/"
   LOG=$TMP_DIR"validate.log"
-  docker run --rm -v $(pwd):/docs rovecom/swagger-tools swagger-tools validate /docs/"$1" > $LOG 2>&1
-  if [[ -s "$LOG" ]]; then
+  docker run  --rm -v $(pwd):/docs openapitools/openapi-generator-cli validate -i /docs/"$1" > $LOG 2>&1
+  count=$(wc -l < $LOG)
+  if [[ $count -gt 2 ]]; then
     # File exists and has a size greater than zero
     return 1
   else
-    docker run -v "$(pwd)":/docs -v $TMP_DIR:/out swaggerapi/swagger-codegen-cli generate -i /docs/"$1" -l swagger -o /out
+    # clear the log file
+    cp /dev/null $LOG
+    docker run -v $(pwd):/docs -v $TMP_DIR:/out openapitools/openapi-generator-cli generate -i /docs/"$1" -g openapi -o /out
+    # https://github.com/swagger-api/swagger-codegen/issues/9140
+    # docker run -v $(pwd):/docs -v $TMP_DIR:/out swaggerapi/swagger-codegen-cli-v3:3.0.9 generate -i /docs/"$1" -l openapi -o /out > /dev/null 2>&1
     return 0
   fi
 }
@@ -23,7 +28,7 @@ function swagger_ui_start() {
             docker rm $CONTAINER_NAME
         fi
         # run the container
-        docker run --name $CONTAINER_NAME -d -p 8017:8080 -e SWAGGER_JSON=/docs/swagger.json -v $TMP_DIR:/docs swaggerapi/swagger-ui
+        docker run --name $CONTAINER_NAME -d -p 8017:8080 -e SWAGGER_JSON=/docs/openapi.json -v $TMP_DIR:/docs swaggerapi/swagger-ui
     elif [ "$(docker ps -aq -f status=running -f name=$CONTAINER_NAME)" ]; then
             echo $CONTAINER_NAME "is already running"
     fi
