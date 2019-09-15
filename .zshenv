@@ -8,13 +8,18 @@ function swagger_yaml2json() {
     # File exists and has a size greater than zero
     return 1
   else
-    # dump the stdout stderr to file otherwise the caller function complains
-    docker run -v $(pwd):/docs -v $TMP_DIR:/out openapitools/openapi-generator-cli generate -i /docs/"$1" -g openapi -o /out > $LOG 2>&1
-    # clear the log file
-    cp /dev/null $LOG
-    # https://github.com/swagger-api/swagger-codegen/issues/9140
-    # docker run -v $(pwd):/docs -v $TMP_DIR:/out swaggerapi/swagger-codegen-cli-v3:3.0.9 generate -i /docs/"$1" -l openapi -o /out > /dev/null 2>&1
-    return 0
+    if grep -q "docker daemon running" $LOG; then
+      return 2
+    else
+      # dump the stdout stderr to file otherwise the caller function complains
+      docker run -v $(pwd):/docs -v $TMP_DIR:/out openapitools/openapi-generator-cli generate -i /docs/"$1" -g openapi -o /out > $LOG 2>&1
+      # clear the log file
+      cp /dev/null $LOG
+      # https://github.com/swagger-api/swagger-codegen/issues/9140
+     # docker run -v $(pwd):/docs -v $TMP_DIR:/out swaggerapi/swagger-codegen-cli-v3:3.0.9 generate -i /docs/"$1" -l openapi -o /out > /dev/null 2>&1
+      return 0
+
+    fi
   fi
 }
 function swagger_ui_start() {

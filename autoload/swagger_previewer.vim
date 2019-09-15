@@ -16,7 +16,7 @@ function! swagger_previewer#Generate(pluginPath)
   if getfsize(log) > 0
     let l:lines = readfile(log)
     for l:line in l:lines
-        echo l:line
+        echoerr l:line
     endfor
   else
     if has('mac')
