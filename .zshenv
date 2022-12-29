@@ -4,7 +4,7 @@ function swagger_yaml2json() {
   LOG=$TMP_DIR"validate.log"
   docker run  --rm -v $(pwd):/docs openapitools/openapi-generator-cli validate -i /docs/"$1" > $LOG 2>&1
   count=$(wc -l < $LOG)
-  if [[ $count -gt 2 ]]; then
+  if [[ ${count##*( )} -gt 2 ]]; then
     # File exists and has a size greater than zero
     return 1
   else
