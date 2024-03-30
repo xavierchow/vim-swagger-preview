@@ -15,13 +15,9 @@ That's why I built this plugin; you can edit your yaml OpenAPI spec in vim and p
 Installation
 ------------
 ### Prerequisite
-* Chrome
+* web browser
 * docker
-* find the zsh script [here](https://github.com/xavierchow/vim-swagger-preview/blob/master/.zshenv), and `cat .zshenv >> ~/.zshenv`
-  * Notes:
-    * `.zshrc` doesn't work because shell script from vim is not interactive shell.
-    * you can put the script above to other shell if you don't use zsh.
-* make sure port `8017` is availabe to listen on, of course you can change it [here](https://github.com/xavierchow/vim-swagger-preview/blob/b63ff606135c3a5239936ef21307f3ad1de22e40/.zshenv#L18). 
+* make sure port `8017` is availabe to listen on, of course you can change it [here](https://github.com/xavierchow/vim-swagger-preview/blob/master/script.sh#L37).
 
 ### Plugin
 
