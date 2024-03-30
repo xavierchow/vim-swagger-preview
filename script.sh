@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Swagger ui preview
 function swagger_yaml2json() {
   TMP_DIR="/tmp/vim-swagger-preview/"
@@ -14,7 +16,7 @@ function swagger_yaml2json() {
       # dump the stdout stderr to file otherwise the caller function complains
       docker run -v $(pwd):/docs -v $TMP_DIR:/out openapitools/openapi-generator-cli generate -i /docs/"$1" -g openapi -o /out > $LOG 2>&1
       # clear the log file
-      cp /dev/null $LOG
+      rm $LOG
       # https://github.com/swagger-api/swagger-codegen/issues/9140
      # docker run -v $(pwd):/docs -v $TMP_DIR:/out swaggerapi/swagger-codegen-cli-v3:3.0.9 generate -i /docs/"$1" -l openapi -o /out > /dev/null 2>&1
       return 0
@@ -52,3 +54,5 @@ function swagger_preview() {
       echo "Converting to json failed!"
     fi
 }
+
+[ -z "$1" ] || swagger_preview "$1"
