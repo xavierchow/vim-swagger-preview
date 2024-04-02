@@ -1,10 +1,10 @@
-let s:vimSwaggerPreviewDir = expand('<sfile>:p:h:h') . "/script.sh"
+let s:vimSwaggerPreviewDir = expand('<sfile>:p:h:h')
 
 function! swagger_previewer#Generate(pluginPath)
   let tmpDir = "/tmp/vim-swagger-preview/"
   call system("mkdir " . tmpDir)
 
-  let s:cmd = "!'" . s:vimSwaggerPreviewDir . "' '" . bufname("%") . "'"
+  let s:cmd = "!'" . s:vimSwaggerPreviewDir . "/script.sh' '" . bufname("%") . "'"
 
   silent execute "!echo Please wait..."
 
