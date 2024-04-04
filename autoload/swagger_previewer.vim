@@ -1,15 +1,18 @@
+let s:vimSwaggerPreviewDir = expand('<sfile>:p:h:h')
 
 function! swagger_previewer#Generate(pluginPath)
   let tmpDir = "/tmp/vim-swagger-preview/"
   call system("mkdir " . tmpDir)
-  if exists( "g:swagger_preview_verbose_log" ) 
-    execute "!" . "swagger_preview " . bufname("%")
+
+  let s:cmd = "!'" . s:vimSwaggerPreviewDir . "/script.sh' '" . bufname("%") . "'"
+
+  silent execute "!echo Please wait..."
+
+  if exists( "g:swagger_preview_verbose_log" )
+    execute s:cmd
   else
-    if has('nvim')
-      silent execute "!" . "swagger_preview " . bufname("%") . "> /dev/null 2>&1"
-    else
-      execute "!" . "swagger_preview " . bufname("%") . "> /dev/null 2>&1"
-    endif
+    let s:cmd = s:cmd . "> /dev/null 2>&1"
+    silent execute s:cmd
   endif
 
   let log = tmpDir . "validate.log"
