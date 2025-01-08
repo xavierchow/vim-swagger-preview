@@ -45,7 +45,7 @@ function swagger_preview() {
     TMP_DIR="/tmp/vim-swagger-preview/"
     LOG=$TMP_DIR"validate.log"
     SOURCE=${1:-swagger.yaml}
-    $(swagger_yaml2json $SOURCE)
+    $(swagger_yaml2json "$SOURCE")
     YAML2JSON_RETURN_CODE=$?
     if [ "$YAML2JSON_RETURN_CODE" -eq "0" ]; then
       swagger_ui_start
